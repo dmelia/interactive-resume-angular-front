@@ -1,0 +1,13 @@
+<mat-toolbar class="navbar nav bg-dark-subtle">
+    <button class="btn" [routerLink]="['home']">
+        <i class="fa-solid fa-house"></i>Home
+    </button>
+
+    <span class="spacer"></span>
+
+
+    <select class="btn" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()" [value]="language"
+                [selected]="language === translate.currentLang">{{ language.toUpperCase() }}</option>
+    </select>
+</mat-toolbar>

@@ -1,0 +1,11 @@
+{
+  "SiteTitle": "Interactive Resume",
+  "Name": "Nom",
+  "NameError": "J'en suis sûr que vous avez un nom !",
+  "Email": "Email",
+  "PhoneNo": "Téléphone",
+  "Password": "Mot de passe",
+  "Bio": "Description",
+  "TermsConditions": "Je suis d'accord avec les termes d'utilisation.",
+  "Submit": "Soumettre"
+}
