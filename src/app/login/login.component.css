@@ -1,0 +1,12 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+
+input[type="email"], input[type="password"] {
+  width: 100%;
+}
+
+small {
+  color: red;
+  font-size: small;
+}

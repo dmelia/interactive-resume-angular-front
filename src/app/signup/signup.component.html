@@ -1,0 +1,34 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()"> <!-- Bind the form group and submit event handler method with Reactive Forms. -->
+  <mat-card>
+    <mat-card-title>Sign Up</mat-card-title>
+    <mat-form-field appearance="outline" class="full-width-input"> <!-- Use Angular Material form field for a clean and consistent look across your application. -->
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width-input"> <!-- Use Angular Material form field for a clean and consistent look across your application. -->
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width-input"> <!-- Use Angular Material form field for a clean and consistent look across your application. -->
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width-input"> <!-- Use Angular Material form field for a clean and consistent look across your application. -->
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width-input"> <!-- Use Angular Material form field for a clean and consistent look across your application. -->
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" formControlName="lastname">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="signUpForm.invalid || isSubmitting" class="full-width-button"> <!-- Use Angular Material button for a clean and consistent look across your application, with validation feedback based on the form's state. -->
+      <span *ngIf="!isSubmitting; else loadingIcon">Sign Up</span>
+      <ng-template #loadingIcon><mat-spinner></mat-spinner></ng-template> <!-- Display a spinner while waiting for server response during sign up process. -->
+    </button>
+  </mat-card>
+</form>
