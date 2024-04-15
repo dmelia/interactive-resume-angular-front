@@ -2,13 +2,16 @@
   <button class="btn" [routerLink]="['home']">
     Home
   </button>
-  <button class="btn" [routerLink]="['login']">
+  <button class="btn" *ngIf="!isLogged()" [routerLink]="['login']">
     Login
   </button>
 
   <span class="spacer"></span>
 
 
+  <button *ngIf="isLogged()" class="btn" (click)="logout()">
+    Logout
+  </button>
   <select class="btn" #selectedLang (change)="switchLang(selectedLang.value)">
     <option *ngFor="let language of translate.getLangs()" [value]="language"
             [selected]="language === translate.currentLang">{{ language.toUpperCase() }}

@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, NgIterable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {User} from "../models/user.model";
 import {UserAlreadyExistsError} from "../errors/user-already-exists.error";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -12,10 +13,8 @@ import {UserAlreadyExistsError} from "../errors/user-already-exists.error";
 export class SignUpComponent {
   signUpForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
   }
-
-  isSubmitting: boolean = false;
 
   ngOnInit(): void {
     this.initForm();
@@ -33,14 +32,11 @@ export class SignUpComponent {
 
   onSubmit() {
     const userData = this.signUpForm.value;
-
     if (this.signUpForm.valid) {
-      this.isSubmitting = true;
-      this.http.post<User>('/api/user', userData).subscribe(response => {
+      this.http.post<User>('http://localhost:8080/auth/signup', userData).subscribe(response => {
         console.log('Sign up successful:', response);
-        this.isSubmitting = false;
+        this.router.navigate(['/login']);
       }, error => {
-        this.isSubmitting = false;
         if (error instanceof UserAlreadyExistsError) {
           console.log('The user already exists in local storage.');
         } else {

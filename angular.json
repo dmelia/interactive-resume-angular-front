@@ -52,7 +52,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "crossOrigin": "none"
             }
           },
           "defaultConfiguration": "production"

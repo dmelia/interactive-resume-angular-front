@@ -26,6 +26,10 @@ export class SharedLocalStorageService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
+  clearStoredUser() {
+    localStorage.setItem('user', "");
+  }
+
   getStoredJwtToken(): JwtToken | null {
     const storedString = localStorage.getItem('jwt-token');
     if (storedString != null) {

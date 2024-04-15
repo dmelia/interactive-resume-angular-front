@@ -19,6 +19,11 @@ export class JwtInterceptor implements HttpInterceptor
         }
       });
     }
+    request = request.clone({
+      setHeaders: {
+        'Access-Control-Allow-Origin': 'http://localhost:4200'
+      }
+    })
     return next.handle(request);
   }
  }

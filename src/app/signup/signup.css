@@ -1,0 +1,10 @@
+.title {
+  margin: 20px;
+}
+
+.signup-card {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 50%;
+  max-width: 250px;
+}
