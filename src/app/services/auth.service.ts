@@ -28,7 +28,7 @@ export class AuthService {
   refreshToken(): Observable<JwtToken> {
     const prevToken = this.sharedLocalStorageService.getStoredJwtToken();
     if (prevToken != null) {
-      return this.http.post<JwtToken>(`${this.baseUrl}/auth/refreshToken`, {token: prevToken.accessToken}).pipe(
+      return this.http.post<JwtToken>(`${this.baseUrl}/auth/refreshToken`, {token: prevToken.refreshToken}).pipe(
         tap((token: JwtToken) => this.setSession(token)),
         catchError(this.handleError<JwtToken>('refresh'))
       );

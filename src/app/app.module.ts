@@ -14,8 +14,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {LoginComponent} from "./login/login.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import {JwtInterceptor} from "./http-interceptors/jwt-intercerptor";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthInterceptor} from "./http-interceptors/auth-interceptor";
 import {SignUpComponent} from "./signup/signup.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -25,6 +25,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatMenuModule} from "@angular/material/menu";
+import {ResumeListComponent} from "./resumes/resume-list/resume-list.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatMenuModule} from "@angular/material/menu";
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ResumeListComponent
   ],
   imports: [
     BrowserModule,
@@ -58,12 +60,13 @@ import {MatMenuModule} from "@angular/material/menu";
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

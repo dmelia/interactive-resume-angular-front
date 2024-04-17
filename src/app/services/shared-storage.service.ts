@@ -35,7 +35,8 @@ export class SharedStorageService {
     if (storedString != null) {
       const storedToken = JSON.parse(storedString);
       return {
-        accessToken: storedToken['accessToken']
+        accessToken: storedToken['accessToken'],
+        refreshToken: storedToken['refreshToken']
       }
     }
     return null;

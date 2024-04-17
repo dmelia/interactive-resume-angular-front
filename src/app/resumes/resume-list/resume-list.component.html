@@ -1,0 +1,24 @@
+<!-- resume-list.component.html -->
+
+<div>
+  <h2>List of Resumes</h2>
+  <ul *ngIf="resumes && resumes.length > 0">
+    <li *ngFor="let resume of resumes">
+        <p>{{ resume.name }}</p>
+        <p><i [class]="resume.icon"></i></p>
+        <button (click)="deleteResume(resume)">Delete</button>
+    </li>
+  </ul>
+  <div *ngIf="resumes && resumes.length === 0">
+    <p>No resumes available.</p>
+  </div>
+</div>
+
+<!-- Dropdown menu for selecting FontAwesome icons -->
+<div>
+  <h3>Select Icon for New/Updated Resume:</h3>
+  <select [(ngModel)]="selectedIcon">
+    <option *ngFor="let icon of iconOptions" [value]="icon">{{ icon }}</option>
+  </select>
+  <button (click)="createResume()">Add new Resume</button>
+</div>

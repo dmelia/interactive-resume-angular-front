@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../services/auth.service";
 import {SharedStorageService} from "../services/shared-storage.service";
