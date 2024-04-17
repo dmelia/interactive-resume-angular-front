@@ -1,29 +1,39 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {catchError, Observable, of, tap} from 'rxjs';
-import {User} from '../models/user.model';
-import {SharedLocalStorageService} from "./shared-local-storage.service";
+import {SharedStorageService} from "./shared-storage.service";
+import {JwtToken} from "../models/jwt-token.model";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private sharedLocalStorageService: SharedLocalStorageService) {
+  constructor(private http: HttpClient, private sharedLocalStorageService: SharedStorageService) {
   }
 
-  login(username: string | undefined | null, password: string | undefined | null): Observable<User> {
+  login(username: string | undefined | null, password: string | undefined | null): Observable<JwtToken> {
     if (typeof username === 'string' && typeof password == 'string') {
-      const headers = new HttpHeaders({'Content-Type': 'application/json'});
-      return this.http.post<User>(`${this.baseUrl}/auth/login`, {
-        username,
-        password
-      }, {headers})
+      return this.http.post<JwtToken>(`${this.baseUrl}/auth/login`, {username, password})
         .pipe(
-          tap((user: User) => this.setSession(user)),
-          catchError(this.handleError<User>('login'))
+          tap((token: JwtToken) => {
+            this.setSession(token);
+          }),
+          catchError(this.handleError<JwtToken>('login'))
         );
     } else {
       throw new Error("login form is required");
+    }
+  }
+
+  refreshToken(): Observable<JwtToken> {
+    const prevToken = this.sharedLocalStorageService.getStoredJwtToken();
+    if (prevToken != null) {
+      return this.http.post<JwtToken>(`${this.baseUrl}/auth/refreshToken`, {token: prevToken.accessToken}).pipe(
+        tap((token: JwtToken) => this.setSession(token)),
+        catchError(this.handleError<JwtToken>('refresh'))
+      );
+    } else {
+      return new Observable<JwtToken>(subscriber => () => null);
     }
   }
 
@@ -36,14 +46,15 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const storedToken = this.sharedLocalStorageService.getStoredJwtToken();
-    return storedToken != null;
+    return storedToken !== null;
   }
 
-  private setSession(user: User): void {
-    this.sharedLocalStorageService.setStoredUser(user);
+  private setSession(token: JwtToken): void {
+    this.sharedLocalStorageService.setToken(token);
   }
 
   logOut(): void {
+    this.sharedLocalStorageService.clearStoredToken();
     this.sharedLocalStorageService.clearStoredUser();
   }
 }

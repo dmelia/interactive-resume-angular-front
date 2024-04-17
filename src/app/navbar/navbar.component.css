@@ -1,7 +1,31 @@
-.spacer {
-  flex: 1;
+.lang-select {
+  min-width: 40px;
+  vertical-align: -webkit-baseline-middle;
+}
+
+::ng-deep #cdk-overlay-0 {
+  position: absolute;
+  background: white;
+  min-width: 50px;
 }
 
 .navbar {
-  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.lang-select {
+  margin-right: 10px;
 }

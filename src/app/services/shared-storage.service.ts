@@ -3,7 +3,7 @@ import {User} from "../models/user.model";
 import {JwtToken} from "../models/jwt-token.model";
 
 @Injectable({providedIn: 'root'})
-export class SharedLocalStorageService {
+export class SharedStorageService {
 
   getStoredUser(): User | null {
     const storedString = localStorage.getItem('user');
@@ -23,15 +23,15 @@ export class SharedLocalStorageService {
   }
 
   setStoredUser(user:User) {
-    localStorage.setItem('user', JSON.stringify(user));
+    window.sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   clearStoredUser() {
-    localStorage.setItem('user', "");
+    window.sessionStorage.removeItem('user');
   }
 
   getStoredJwtToken(): JwtToken | null {
-    const storedString = localStorage.getItem('jwt-token');
+    const storedString = window.sessionStorage.getItem('token');
     if (storedString != null) {
       const storedToken = JSON.parse(storedString);
       return {
@@ -39,5 +39,21 @@ export class SharedLocalStorageService {
       }
     }
     return null;
+  }
+
+  setToken(token: JwtToken) {
+    window.sessionStorage.setItem('token', JSON.stringify(token));
+  }
+
+  clearStoredToken() {
+    window.sessionStorage.removeItem('token');
+  }
+
+  getCurrentLanguage():string | null {
+    return window.sessionStorage.getItem("language");
+  }
+
+  setCurrentLanguage(lang:string) {
+    window.sessionStorage.setItem("language", lang);
   }
 }

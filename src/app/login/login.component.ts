@@ -14,18 +14,19 @@ export class LoginComponent {
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
-  errorMessage!: string; // Error message to display in case of failed login attempt.
-  loading = false; // Loading indicator for the form submission process.
+  errorMessage!: string;
+  loading = false;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      this.loading = true;
       const values = this.loginForm.value;
       this.authService.login(values.username, values.password).pipe(tap(user => {
         this.router.navigate(['/home']);
-      })).subscribe();
+      })).subscribe(() => this.loading = false);
     }
   }
 }
